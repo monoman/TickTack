@@ -1,6 +1,7 @@
 bin/
 obj/
-Commons.GetOptions.sln.ide/
+packages/
+TickTack.sln.ide/
 *.suo
 *.userprefs
 *.pidb

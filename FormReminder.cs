@@ -20,24 +20,38 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+
 using System;
 using System.Collections.Generic;
-using System.Threading;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
 using System.Windows.Forms;
+using TickTack.Properties;
 
 namespace TickTack
 {
-	static class Program
+	public partial class FormReminder : Form
 	{
-		/// <summary>
-		/// The main entry point for the application.
-		/// </summary>
-		[STAThread]
-		static void Main()
+		public FormReminder()
 		{
-			Application.EnableVisualStyles();
-			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new FormReminder());
+			InitializeComponent();
+			Text = Resources.Title;
+		}
+
+		private void buttonOk_Click(object sender, EventArgs e)
+		{
+			timer.Interval = ((int)numericUpDownMinutesToReappear.Value) * 60000;
+			timer.Enabled = true;
+			Hide();
+		}
+
+		private void timer_Tick(object sender, EventArgs e)
+		{
+			timer.Enabled = false;
+			Show();
+			buttonOk.Focus();
 		}
 	}
 }
