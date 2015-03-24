@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>Rafael Teixeira</authors>
+    <owners>Rafael Teixeira</owners>
+    <licenseUrl>https://github.com/monoman/TickTack/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/monoman/TickTack</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A simple delayed reminder!</description>
+    <releaseNotes>Just some repackaging as a Nuget.</releaseNotes>
+    <copyright>Copyright 2008-2015 Rafael Teixeira</copyright>
+    <tags>reminder</tags>
+  </metadata>
+  <files>
+    <file src="bin\$configuration$\**\*.dll" target="tools" />
+  </files>
+</package>
