@@ -3,14 +3,16 @@ TickTack
 
 ----------
 
-A simple delayed reminder.
+## A simple delayed reminder.
+
+#### Upgraded from .NET Framework 4.5 to .NET 8.0
 
 ----------
 
 License: MIT
 ------------
 
-Copyright (c) 2008-2015 Rafael 'Monoman' Teixeira
+Copyright (c) 2008-2024 Rafael 'Monoman' Teixeira
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
