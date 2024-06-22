@@ -11,8 +11,7 @@ namespace TickTack
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
+        protected override void Dispose(bool disposing) {
             if (disposing && (components != null)) {
                 components.Dispose();
             }
@@ -27,18 +26,72 @@ namespace TickTack
         /// </summary>
         private void InitializeComponent() {
             components = new System.ComponentModel.Container();
+            var dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            timer = new System.Windows.Forms.Timer(components);
+            panelHistory = new Panel();
+            dataGridViewHistory = new DataGridView();
+            panelTop = new Panel();
             panelConfig = new Panel();
             labelShowUpAgain = new Label();
             labelMinutes = new Label();
             numericUpDownMinutesToReappear = new NumericUpDown();
-            buttonHide = new Button();
-            timer = new System.Windows.Forms.Timer(components);
-            textBoxMessage = new TextBox();
-            listBoxHistory = new ListBox();
             buttonClearHistory = new Button();
+            buttonStart = new Button();
+            panelHistory.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewHistory).BeginInit();
+            panelTop.SuspendLayout();
             panelConfig.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDownMinutesToReappear).BeginInit();
             SuspendLayout();
+            // 
+            // timer
+            // 
+            timer.Tick += timer_Tick;
+            // 
+            // panelHistory
+            // 
+            panelHistory.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            panelHistory.BackColor = Color.OrangeRed;
+            panelHistory.Controls.Add(dataGridViewHistory);
+            panelHistory.Dock = DockStyle.Bottom;
+            panelHistory.Location = new Point(0, 58);
+            panelHistory.Name = "panelHistory";
+            panelHistory.Size = new Size(677, 366);
+            panelHistory.TabIndex = 8;
+            // 
+            // dataGridViewHistory
+            // 
+            dataGridViewHistory.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewHistory.BackgroundColor = Color.NavajoWhite;
+            dataGridViewHistory.CellBorderStyle = DataGridViewCellBorderStyle.SunkenVertical;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = Color.DarkGreen;
+            dataGridViewCellStyle1.SelectionBackColor = Color.PeachPuff;
+            dataGridViewCellStyle1.SelectionForeColor = Color.DarkOliveGreen;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dataGridViewHistory.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewHistory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewHistory.Dock = DockStyle.Fill;
+            dataGridViewHistory.GridColor = Color.Green;
+            dataGridViewHistory.Location = new Point(0, 0);
+            dataGridViewHistory.MultiSelect = false;
+            dataGridViewHistory.Name = "dataGridViewHistory";
+            dataGridViewHistory.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridViewHistory.Size = new Size(677, 366);
+            dataGridViewHistory.TabIndex = 11;
+            dataGridViewHistory.CellDoubleClick += dataGridViewHistory_CellDoubleClick;
+            // 
+            // panelTop
+            // 
+            panelTop.Controls.Add(panelConfig);
+            panelTop.Controls.Add(buttonStart);
+            panelTop.Dock = DockStyle.Top;
+            panelTop.Location = new Point(0, 0);
+            panelTop.Name = "panelTop";
+            panelTop.Size = new Size(677, 59);
+            panelTop.TabIndex = 9;
             // 
             // panelConfig
             // 
@@ -46,27 +99,28 @@ namespace TickTack
             panelConfig.Controls.Add(labelShowUpAgain);
             panelConfig.Controls.Add(labelMinutes);
             panelConfig.Controls.Add(numericUpDownMinutesToReappear);
-            panelConfig.Controls.Add(buttonHide);
-            panelConfig.Dock = DockStyle.Top;
+            panelConfig.Controls.Add(buttonClearHistory);
+            panelConfig.Dock = DockStyle.Fill;
+            panelConfig.Font = new Font("Cascadia Code SemiBold", 12F, FontStyle.Bold);
             panelConfig.Location = new Point(0, 0);
             panelConfig.Name = "panelConfig";
-            panelConfig.Size = new Size(491, 37);
-            panelConfig.TabIndex = 3;
+            panelConfig.Size = new Size(578, 59);
+            panelConfig.TabIndex = 4;
             // 
             // labelShowUpAgain
             // 
-            labelShowUpAgain.Font = new Font("Cascadia Code", 12F);
-            labelShowUpAgain.Location = new Point(17, 9);
+            labelShowUpAgain.Font = new Font("Cascadia Code SemiBold", 12F, FontStyle.Bold);
+            labelShowUpAgain.Location = new Point(250, 16);
             labelShowUpAgain.Name = "labelShowUpAgain";
-            labelShowUpAgain.Size = new Size(176, 21);
+            labelShowUpAgain.Size = new Size(84, 21);
             labelShowUpAgain.TabIndex = 5;
-            labelShowUpAgain.Text = "Show up again in";
+            labelShowUpAgain.Text = "Duration";
             labelShowUpAgain.TextAlign = ContentAlignment.TopRight;
             // 
             // labelMinutes
             // 
-            labelMinutes.Font = new Font("Cascadia Code", 12F);
-            labelMinutes.Location = new Point(284, 9);
+            labelMinutes.Font = new Font("Cascadia Code SemiBold", 12F, FontStyle.Bold);
+            labelMinutes.Location = new Point(409, 16);
             labelMinutes.Name = "labelMinutes";
             labelMinutes.Size = new Size(76, 21);
             labelMinutes.TabIndex = 4;
@@ -74,123 +128,88 @@ namespace TickTack
             // 
             // numericUpDownMinutesToReappear
             // 
-            numericUpDownMinutesToReappear.Font = new Font("Cascadia Code", 12F);
-            numericUpDownMinutesToReappear.Location = new Point(200, 6);
+            numericUpDownMinutesToReappear.Font = new Font("Cascadia Code SemiBold", 12F, FontStyle.Bold);
+            numericUpDownMinutesToReappear.Location = new Point(339, 13);
             numericUpDownMinutesToReappear.Margin = new Padding(4, 3, 4, 3);
             numericUpDownMinutesToReappear.Maximum = new decimal(new int[] { 500, 0, 0, 0 });
             numericUpDownMinutesToReappear.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numericUpDownMinutesToReappear.Name = "numericUpDownMinutesToReappear";
-            numericUpDownMinutesToReappear.Size = new Size(77, 27);
+            numericUpDownMinutesToReappear.Size = new Size(63, 26);
             numericUpDownMinutesToReappear.TabIndex = 3;
             numericUpDownMinutesToReappear.TextAlign = HorizontalAlignment.Right;
             numericUpDownMinutesToReappear.Value = new decimal(new int[] { 20, 0, 0, 0 });
             // 
-            // buttonHide
-            // 
-            buttonHide.AutoSize = true;
-            buttonHide.BackColor = Color.Indigo;
-            buttonHide.Dock = DockStyle.Right;
-            buttonHide.FlatStyle = FlatStyle.Popup;
-            buttonHide.Font = new Font("Candara", 19F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            buttonHide.ForeColor = Color.LightGray;
-            buttonHide.Location = new Point(397, 0);
-            buttonHide.Name = "buttonHide";
-            buttonHide.Padding = new Padding(10, 0, 10, 0);
-            buttonHide.Size = new Size(94, 37);
-            buttonHide.TabIndex = 5;
-            buttonHide.Text = "Hide";
-            buttonHide.UseVisualStyleBackColor = true;
-            buttonHide.Click += buttonHide_Click;
-            // 
-            // timer
-            // 
-            timer.Tick += timer_Tick;
-            // 
-            // textBoxMessage
-            // 
-            textBoxMessage.AcceptsTab = true;
-            textBoxMessage.BackColor = Color.FromArgb(255, 192, 255);
-            textBoxMessage.Dock = DockStyle.Top;
-            textBoxMessage.Font = new Font("Cascadia Code", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            textBoxMessage.ForeColor = Color.MidnightBlue;
-            textBoxMessage.Location = new Point(0, 37);
-            textBoxMessage.Name = "textBoxMessage";
-            textBoxMessage.PlaceholderText = "Type here your message...";
-            textBoxMessage.Size = new Size(491, 26);
-            textBoxMessage.TabIndex = 0;
-            textBoxMessage.TextChanged += textBoxMessage_TextChanged;
-            textBoxMessage.KeyDown += textBoxMessage_KeyDown;
-            // 
-            // listBoxHistory
-            // 
-            listBoxHistory.BackColor = Color.LemonChiffon;
-            listBoxHistory.Dock = DockStyle.Left;
-            listBoxHistory.Font = new Font("Cascadia Code", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            listBoxHistory.ForeColor = Color.DarkGreen;
-            listBoxHistory.FormattingEnabled = true;
-            listBoxHistory.IntegralHeight = false;
-            listBoxHistory.ItemHeight = 21;
-            listBoxHistory.Location = new Point(0, 63);
-            listBoxHistory.Name = "listBoxHistory";
-            listBoxHistory.SelectionMode = SelectionMode.MultiSimple;
-            listBoxHistory.Size = new Size(399, 144);
-            listBoxHistory.TabIndex = 6;
-            listBoxHistory.DoubleClick += listBoxHistory_DoubleClick;
-            // 
             // buttonClearHistory
             // 
-            buttonClearHistory.BackColor = Color.Crimson;
-            buttonClearHistory.Dock = DockStyle.Right;
+            buttonClearHistory.AutoSize = true;
+            buttonClearHistory.BackColor = Color.Khaki;
+            buttonClearHistory.Dock = DockStyle.Left;
             buttonClearHistory.FlatStyle = FlatStyle.Popup;
-            buttonClearHistory.Font = new Font("Candara", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            buttonClearHistory.ForeColor = Color.Gold;
-            buttonClearHistory.Location = new Point(397, 63);
+            buttonClearHistory.Font = new Font("Cascadia Code SemiBold", 12F, FontStyle.Bold);
+            buttonClearHistory.ForeColor = Color.DarkGreen;
+            buttonClearHistory.Location = new Point(0, 0);
             buttonClearHistory.Name = "buttonClearHistory";
             buttonClearHistory.Padding = new Padding(10, 0, 10, 0);
-            buttonClearHistory.Size = new Size(94, 144);
-            buttonClearHistory.TabIndex = 7;
-            buttonClearHistory.Text = "Clear";
+            buttonClearHistory.Size = new Size(157, 59);
+            buttonClearHistory.TabIndex = 11;
+            buttonClearHistory.Text = "Clear history";
             buttonClearHistory.UseVisualStyleBackColor = false;
             buttonClearHistory.Click += buttonClearHistory_Click;
             // 
+            // buttonStart
+            // 
+            buttonStart.AutoSize = true;
+            buttonStart.BackColor = Color.Indigo;
+            buttonStart.Dock = DockStyle.Right;
+            buttonStart.FlatStyle = FlatStyle.Popup;
+            buttonStart.Font = new Font("Cascadia Code SemiBold", 12F, FontStyle.Bold);
+            buttonStart.ForeColor = Color.LightGray;
+            buttonStart.Location = new Point(578, 0);
+            buttonStart.Name = "buttonStart";
+            buttonStart.Padding = new Padding(10, 0, 10, 0);
+            buttonStart.Size = new Size(99, 59);
+            buttonStart.TabIndex = 6;
+            buttonStart.Text = "Start";
+            buttonStart.UseVisualStyleBackColor = true;
+            buttonStart.Click += buttonStart_Click;
+            // 
             // FormReminder
             // 
-            AcceptButton = buttonHide;
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             BackColor = Color.Bisque;
-            ClientSize = new Size(491, 207);
-            Controls.Add(buttonClearHistory);
-            Controls.Add(listBoxHistory);
-            Controls.Add(textBoxMessage);
-            Controls.Add(panelConfig);
+            ClientSize = new Size(677, 424);
+            Controls.Add(panelTop);
+            Controls.Add(panelHistory);
             Font = new Font("Calibri", 9F);
             FormBorderStyle = FormBorderStyle.Fixed3D;
             MaximizeBox = false;
-            MinimizeBox = false;
             Name = "FormReminder";
             Opacity = 0.85D;
             ShowIcon = false;
-            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Reminder";
             Shown += FormReminder_Shown;
+            panelHistory.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridViewHistory).EndInit();
+            panelTop.ResumeLayout(false);
+            panelTop.PerformLayout();
             panelConfig.ResumeLayout(false);
             panelConfig.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDownMinutesToReappear).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
-        private System.Windows.Forms.Panel panelConfig;
-        private System.Windows.Forms.Label labelMinutes;
-        private System.Windows.Forms.NumericUpDown numericUpDownMinutesToReappear;
-        private System.Windows.Forms.Label labelShowUpAgain;
         private System.Windows.Forms.Timer timer;
-        private Button buttonHide;
-        private TextBox textBoxMessage;
-        private ListBox listBoxHistory;
+        private Panel panelHistory;
+        private Panel panelTop;
+        private Button buttonStart;
+        private Panel panelConfig;
+        private Label labelShowUpAgain;
+        private Label labelMinutes;
+        private NumericUpDown numericUpDownMinutesToReappear;
+        private DataGridView dataGridViewHistory;
         private Button buttonClearHistory;
     }
 }
