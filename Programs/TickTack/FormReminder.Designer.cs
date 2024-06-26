@@ -27,6 +27,7 @@ namespace TickTack
         private void InitializeComponent() {
             components = new System.ComponentModel.Container();
             var dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            var dataGridViewCellStyle2 = new DataGridViewCellStyle();
             timer = new System.Windows.Forms.Timer(components);
             panelHistory = new Panel();
             dataGridViewHistory = new DataGridView();
@@ -63,7 +64,7 @@ namespace TickTack
             // 
             dataGridViewHistory.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewHistory.BackgroundColor = Color.NavajoWhite;
-            dataGridViewHistory.CellBorderStyle = DataGridViewCellBorderStyle.SunkenVertical;
+            dataGridViewHistory.CellBorderStyle = DataGridViewCellBorderStyle.Sunken;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = SystemColors.Control;
             dataGridViewCellStyle1.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -74,14 +75,22 @@ namespace TickTack
             dataGridViewHistory.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewHistory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewHistory.Dock = DockStyle.Fill;
-            dataGridViewHistory.GridColor = Color.Green;
+            dataGridViewHistory.GridColor = Color.DeepPink;
             dataGridViewHistory.Location = new Point(0, 0);
             dataGridViewHistory.MultiSelect = false;
             dataGridViewHistory.Name = "dataGridViewHistory";
+            dataGridViewCellStyle2.BackColor = Color.PapayaWhip;
+            dataGridViewCellStyle2.Font = new Font("Calibri", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = Color.Crimson;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dataGridViewHistory.RowsDefaultCellStyle = dataGridViewCellStyle2;
             dataGridViewHistory.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewHistory.Size = new Size(677, 366);
+            dataGridViewHistory.StandardTab = true;
             dataGridViewHistory.TabIndex = 11;
             dataGridViewHistory.CellDoubleClick += dataGridViewHistory_CellDoubleClick;
+            dataGridViewHistory.CellValueChanged += dataGridViewHistory_CellValueChanged;
+            dataGridViewHistory.UserDeletingRow += dataGridViewHistory_UserDeletingRow;
             // 
             // panelTop
             // 
