@@ -14,11 +14,23 @@ public partial class FormReminder : Form
         InitializeComponent();
         dataGridViewHistory.DataSource = _historyFile;
         dataGridViewHistory.ClearSelection();
-        (Text, numericUpDownMinutesToReappear.Value) = _contentFile.ReadContent();
+        Status = _contentFile.ReadContent();
         TopMost = true;
     }
 
     public static string DataFolder => _appDataFolder.Value;
+
+    public (string Title, int Minutes) Status {
+        get => (_title, (int)numericUpDownMinutesToReappear.Value);
+        set {
+            _title = value.Title;
+            numericUpDownMinutesToReappear.Value = value.Minutes;
+            progressBar.Value = progressBar.Maximum = value.Minutes * 60;
+            UpdateText();
+        }
+    }
+
+    private void UpdateText() => Text = _running ? $"{_title} {progressBar.Value}s" : _title;
 
     private static readonly Lazy<string> _appDataFolder = new(() => {
         var _appDataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), nameof(TickTack));
@@ -29,14 +41,17 @@ public partial class FormReminder : Form
 
     private readonly HistoryFile _historyFile;
     private readonly ContentFile _contentFile;
+    private string _title = "Reminder";
+    private bool _running = false;
 
-    private void TrackCell(DataGridViewCellEventArgs e) => ProcessChange(dataGridViewHistory.Rows[e.RowIndex].Cells[e.ColumnIndex].Value, (int)numericUpDownMinutesToReappear.Value, hide: false);
-    private void HideWith(object? value) => ProcessChange(value, (int)numericUpDownMinutesToReappear.Value, hide: true);
-    private void ProcessChange(object? content, int minutes, bool hide) {
+    private void TrackCell(DataGridViewCellEventArgs e) => ProcessChange(dataGridViewHistory.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+    private void HideWith(object? value) => ProcessChange(value, hide: true);
+    private void ProcessChange(object? content, int? minutes = null, bool hide = false) {
         if (content is string text && !string.IsNullOrWhiteSpace(text)) {
-            (Text, numericUpDownMinutesToReappear.Value) = _contentFile.UpdateContent(text, minutes);
+            Status = _contentFile.UpdateContent(text, minutes ?? Status.Minutes);
             if (hide) {
-                timer.Interval = minutes * 60000;
+                _running = true;
+                timer.Interval = 1000;
                 timer.Enabled = true;
                 WindowState = FormWindowState.Minimized;
             }
@@ -45,13 +60,21 @@ public partial class FormReminder : Form
     }
     private void ShowAgain() {
         timer.Enabled = false;
+        _running = false;
+        progressBar.Value = progressBar.Maximum;
+        UpdateText();
         TopMost = true;
         WindowState = FormWindowState.Normal;
         Show();
     }
 
-    private void timer_Tick(object sender, EventArgs e) =>
-        ShowAgain();
+    private void timer_Tick(object sender, EventArgs e) {
+        if (progressBar.Value > 0) {
+            progressBar.Value--;
+            UpdateText();
+        } else
+            ShowAgain();
+    }
 
     private void FormReminder_Shown(object sender, EventArgs e) {
         timer.Enabled = false;
