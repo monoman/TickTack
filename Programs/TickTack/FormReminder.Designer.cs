@@ -26,24 +26,18 @@ namespace TickTack
         /// </summary>
         private void InitializeComponent() {
             components = new System.ComponentModel.Container();
-            var dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            var dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            var dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            var dataGridViewCellStyle2 = new DataGridViewCellStyle();
             timer = new System.Windows.Forms.Timer(components);
             panelHistory = new Panel();
             dataGridViewHistory = new DataGridView();
             panelTop = new Panel();
-            panelConfig = new Panel();
             progressBar = new ProgressBar();
-            labelShowUpAgain = new Label();
-            labelMinutes = new Label();
-            numericUpDownMinutesToReappear = new NumericUpDown();
             buttonClearHistory = new Button();
             buttonStart = new Button();
             panelHistory.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewHistory).BeginInit();
             panelTop.SuspendLayout();
-            panelConfig.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownMinutesToReappear).BeginInit();
             SuspendLayout();
             // 
             // timer
@@ -56,9 +50,9 @@ namespace TickTack
             panelHistory.BackColor = Color.OrangeRed;
             panelHistory.Controls.Add(dataGridViewHistory);
             panelHistory.Dock = DockStyle.Bottom;
-            panelHistory.Location = new Point(0, 72);
+            panelHistory.Location = new Point(0, 34);
             panelHistory.Name = "panelHistory";
-            panelHistory.Size = new Size(677, 352);
+            panelHistory.Size = new Size(677, 390);
             panelHistory.TabIndex = 8;
             // 
             // dataGridViewHistory
@@ -66,27 +60,27 @@ namespace TickTack
             dataGridViewHistory.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewHistory.BackgroundColor = Color.NavajoWhite;
             dataGridViewHistory.CellBorderStyle = DataGridViewCellBorderStyle.Sunken;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Control;
-            dataGridViewCellStyle3.Font = new Font("Calibri", 9F);
-            dataGridViewCellStyle3.ForeColor = Color.DarkGreen;
-            dataGridViewCellStyle3.SelectionBackColor = Color.PeachPuff;
-            dataGridViewCellStyle3.SelectionForeColor = Color.DarkOliveGreen;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dataGridViewHistory.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Calibri", 9F);
+            dataGridViewCellStyle1.ForeColor = Color.DarkGreen;
+            dataGridViewCellStyle1.SelectionBackColor = Color.PeachPuff;
+            dataGridViewCellStyle1.SelectionForeColor = Color.DarkOliveGreen;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dataGridViewHistory.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewHistory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewHistory.Dock = DockStyle.Fill;
             dataGridViewHistory.GridColor = Color.DeepPink;
             dataGridViewHistory.Location = new Point(0, 0);
             dataGridViewHistory.MultiSelect = false;
             dataGridViewHistory.Name = "dataGridViewHistory";
-            dataGridViewCellStyle4.BackColor = Color.PapayaWhip;
-            dataGridViewCellStyle4.Font = new Font("Calibri", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle4.ForeColor = Color.Crimson;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dataGridViewHistory.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.BackColor = Color.PapayaWhip;
+            dataGridViewCellStyle2.Font = new Font("Calibri", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = Color.Crimson;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dataGridViewHistory.RowsDefaultCellStyle = dataGridViewCellStyle2;
             dataGridViewHistory.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewHistory.Size = new Size(677, 352);
+            dataGridViewHistory.Size = new Size(677, 390);
             dataGridViewHistory.StandardTab = true;
             dataGridViewHistory.TabIndex = 11;
             dataGridViewHistory.CellDoubleClick += dataGridViewHistory_CellDoubleClick;
@@ -95,81 +89,40 @@ namespace TickTack
             // 
             // panelTop
             // 
-            panelTop.Controls.Add(panelConfig);
+            panelTop.BackColor = SystemColors.GradientActiveCaption;
+            panelTop.Controls.Add(progressBar);
+            panelTop.Controls.Add(buttonClearHistory);
             panelTop.Controls.Add(buttonStart);
             panelTop.Dock = DockStyle.Top;
+            panelTop.Font = new Font("Cascadia Code SemiBold", 12F, FontStyle.Bold);
             panelTop.Location = new Point(0, 0);
             panelTop.Name = "panelTop";
-            panelTop.Size = new Size(677, 76);
-            panelTop.TabIndex = 9;
-            // 
-            // panelConfig
-            // 
-            panelConfig.BackColor = SystemColors.GradientActiveCaption;
-            panelConfig.Controls.Add(progressBar);
-            panelConfig.Controls.Add(labelShowUpAgain);
-            panelConfig.Controls.Add(labelMinutes);
-            panelConfig.Controls.Add(numericUpDownMinutesToReappear);
-            panelConfig.Controls.Add(buttonClearHistory);
-            panelConfig.Font = new Font("Cascadia Code SemiBold", 12F, FontStyle.Bold);
-            panelConfig.Location = new Point(0, 0);
-            panelConfig.Name = "panelConfig";
-            panelConfig.Size = new Size(578, 74);
-            panelConfig.TabIndex = 4;
+            panelTop.Size = new Size(677, 34);
+            panelTop.TabIndex = 4;
             // 
             // progressBar
             // 
-            progressBar.Location = new Point(158, 49);
+            progressBar.Dock = DockStyle.Fill;
+            progressBar.Location = new Point(85, 0);
             progressBar.Name = "progressBar";
-            progressBar.Size = new Size(417, 23);
+            progressBar.Size = new Size(435, 34);
             progressBar.Step = 1;
             progressBar.Style = ProgressBarStyle.Continuous;
             progressBar.TabIndex = 12;
             // 
-            // labelShowUpAgain
-            // 
-            labelShowUpAgain.Font = new Font("Cascadia Code SemiBold", 12F, FontStyle.Bold);
-            labelShowUpAgain.Location = new Point(250, 16);
-            labelShowUpAgain.Name = "labelShowUpAgain";
-            labelShowUpAgain.Size = new Size(84, 21);
-            labelShowUpAgain.TabIndex = 5;
-            labelShowUpAgain.Text = "Duration";
-            labelShowUpAgain.TextAlign = ContentAlignment.TopRight;
-            // 
-            // labelMinutes
-            // 
-            labelMinutes.Font = new Font("Cascadia Code SemiBold", 12F, FontStyle.Bold);
-            labelMinutes.Location = new Point(409, 16);
-            labelMinutes.Name = "labelMinutes";
-            labelMinutes.Size = new Size(76, 21);
-            labelMinutes.TabIndex = 4;
-            labelMinutes.Text = "minutes";
-            // 
-            // numericUpDownMinutesToReappear
-            // 
-            numericUpDownMinutesToReappear.Font = new Font("Cascadia Code SemiBold", 12F, FontStyle.Bold);
-            numericUpDownMinutesToReappear.Location = new Point(339, 13);
-            numericUpDownMinutesToReappear.Margin = new Padding(4, 3, 4, 3);
-            numericUpDownMinutesToReappear.Maximum = new decimal(new int[] { 500, 0, 0, 0 });
-            numericUpDownMinutesToReappear.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-            numericUpDownMinutesToReappear.Name = "numericUpDownMinutesToReappear";
-            numericUpDownMinutesToReappear.Size = new Size(63, 26);
-            numericUpDownMinutesToReappear.TabIndex = 3;
-            numericUpDownMinutesToReappear.TextAlign = HorizontalAlignment.Right;
-            numericUpDownMinutesToReappear.Value = new decimal(new int[] { 20, 0, 0, 0 });
-            // 
             // buttonClearHistory
             // 
             buttonClearHistory.AutoSize = true;
+            buttonClearHistory.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             buttonClearHistory.BackColor = Color.Khaki;
-            buttonClearHistory.Dock = DockStyle.Left;
+            buttonClearHistory.Dock = DockStyle.Right;
             buttonClearHistory.FlatStyle = FlatStyle.Popup;
             buttonClearHistory.Font = new Font("Cascadia Code SemiBold", 12F, FontStyle.Bold);
             buttonClearHistory.ForeColor = Color.DarkGreen;
-            buttonClearHistory.Location = new Point(0, 0);
+            buttonClearHistory.Location = new Point(520, 0);
             buttonClearHistory.Name = "buttonClearHistory";
             buttonClearHistory.Padding = new Padding(10, 0, 10, 0);
-            buttonClearHistory.Size = new Size(157, 74);
+            buttonClearHistory.Size = new Size(157, 34);
             buttonClearHistory.TabIndex = 11;
             buttonClearHistory.Text = "Clear history";
             buttonClearHistory.UseVisualStyleBackColor = false;
@@ -178,15 +131,16 @@ namespace TickTack
             // buttonStart
             // 
             buttonStart.AutoSize = true;
+            buttonStart.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             buttonStart.BackColor = Color.Indigo;
-            buttonStart.Dock = DockStyle.Right;
+            buttonStart.Dock = DockStyle.Left;
             buttonStart.FlatStyle = FlatStyle.Popup;
             buttonStart.Font = new Font("Cascadia Code SemiBold", 12F, FontStyle.Bold);
             buttonStart.ForeColor = Color.LightGray;
-            buttonStart.Location = new Point(578, 0);
+            buttonStart.Location = new Point(0, 0);
             buttonStart.Name = "buttonStart";
             buttonStart.Padding = new Padding(10, 0, 10, 0);
-            buttonStart.Size = new Size(99, 76);
+            buttonStart.Size = new Size(85, 34);
             buttonStart.TabIndex = 6;
             buttonStart.Text = "Start";
             buttonStart.UseVisualStyleBackColor = true;
@@ -213,9 +167,6 @@ namespace TickTack
             ((System.ComponentModel.ISupportInitialize)dataGridViewHistory).EndInit();
             panelTop.ResumeLayout(false);
             panelTop.PerformLayout();
-            panelConfig.ResumeLayout(false);
-            panelConfig.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownMinutesToReappear).EndInit();
             ResumeLayout(false);
         }
 
@@ -224,10 +175,6 @@ namespace TickTack
         private Panel panelHistory;
         private Panel panelTop;
         private Button buttonStart;
-        private Panel panelConfig;
-        private Label labelShowUpAgain;
-        private Label labelMinutes;
-        private NumericUpDown numericUpDownMinutesToReappear;
         private DataGridView dataGridViewHistory;
         private Button buttonClearHistory;
         private ProgressBar progressBar;

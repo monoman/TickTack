@@ -12,9 +12,9 @@ public class ContentFile(string folderPath)
 {
 
     private readonly FileInfo _file = new(Path.Combine(folderPath, "content.txt"));
-    public const string DefaultContent = "Done for today?";
+    public const string DefaultContent = "Personal - Done for today?";
     public const int DefaultPeriodInMinutes = 25;
-    private const char _separator = '\n';
+    private const char _separator = '|';
 
     public (string, int) ReadContent() {
         if (!_file.Exists)

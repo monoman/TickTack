@@ -21,16 +21,23 @@ public partial class FormReminder : Form
     public static string DataFolder => _appDataFolder.Value;
 
     public (string Title, int Minutes) Status {
-        get => (_title, (int)numericUpDownMinutesToReappear.Value);
+        get => (_title, _totalMinutes);
         set {
             _title = value.Title;
-            numericUpDownMinutesToReappear.Value = value.Minutes;
-            progressBar.Value = progressBar.Maximum = value.Minutes * 60;
+            _interval = TimeSpan.FromMinutes(value.Minutes);
+            progressBar.Maximum = (int)_interval.TotalSeconds;
+            progressBar.Value = 0;
             UpdateText();
         }
     }
 
-    private void UpdateText() => Text = _running ? $"{_title} {progressBar.Value}s" : _title;
+    private int _totalMinutes => (int)_interval.TotalMinutes;
+    private void UpdateText() => Text = $"{_title}  [{FormatTimeSpan(progressBar.Value)} of {_totalMinutes:0}min]";
+
+    private static string FormatTimeSpan(int timeInSeconds) {
+        var ts = TimeSpan.FromSeconds(timeInSeconds);
+        return ts.ToString("mm\\:ss");
+    }
 
     private static readonly Lazy<string> _appDataFolder = new(() => {
         var _appDataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), nameof(TickTack));
@@ -42,25 +49,27 @@ public partial class FormReminder : Form
     private readonly HistoryFile _historyFile;
     private readonly ContentFile _contentFile;
     private string _title = "Reminder";
-    private bool _running = false;
+    private TimeSpan _interval = TimeSpan.FromMinutes(25);
 
-    private void TrackCell(DataGridViewCellEventArgs e) => ProcessChange(dataGridViewHistory.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
-    private void HideWith(object? value) => ProcessChange(value, hide: true);
-    private void ProcessChange(object? content, int? minutes = null, bool hide = false) {
-        if (content is string text && !string.IsNullOrWhiteSpace(text)) {
-            Status = _contentFile.UpdateContent(text, minutes ?? Status.Minutes);
-            if (hide) {
-                _running = true;
-                timer.Interval = 1000;
-                timer.Enabled = true;
-                WindowState = FormWindowState.Minimized;
+    private void SelectRow(DataGridViewRow? row, bool hide = false) {
+        if (row is not null && (!timer.Enabled || hide)) {
+            string? text = row?.Cells[0].Value as string;
+            int minutes = (int)(row?.Cells[1].Value ?? ContentFile.DefaultPeriodInMinutes);
+            if (!string.IsNullOrWhiteSpace(text) && minutes >= 1) {
+                timer.Enabled = false;
+                Status = _contentFile.UpdateContent(text, minutes);
+                if (hide) {
+                    timer.Interval = 1000;
+                    timer.Enabled = true;
+                    WindowState = FormWindowState.Minimized;
+                }
+                return;
             }
-        } else
-            dataGridViewHistory.Focus();
+        }
+        dataGridViewHistory.Focus();
     }
     private void ShowAgain() {
         timer.Enabled = false;
-        _running = false;
         progressBar.Value = progressBar.Maximum;
         UpdateText();
         TopMost = true;
@@ -69,8 +78,8 @@ public partial class FormReminder : Form
     }
 
     private void timer_Tick(object sender, EventArgs e) {
-        if (progressBar.Value > 0) {
-            progressBar.Value--;
+        if (progressBar.Value < progressBar.Maximum) {
+            progressBar.Value++;
             UpdateText();
         } else
             ShowAgain();
@@ -90,7 +99,7 @@ public partial class FormReminder : Form
     private void dataGridViewHistory_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e) =>
         e.Cancel = MessageBox.Show($"Do you really want to remove '{e.Row?.Cells[0].Value}'?", "Please confirm", MessageBoxButtons.YesNo) == DialogResult.No;
 
-    private void buttonStart_Click(object sender, EventArgs e) => HideWith(dataGridViewHistory.CurrentCell?.Value);
-    private void dataGridViewHistory_CellDoubleClick(object sender, DataGridViewCellEventArgs e) => HideWith(dataGridViewHistory.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
-    private void dataGridViewHistory_CellValueChanged(object sender, DataGridViewCellEventArgs e) => TrackCell(e);
+    private void buttonStart_Click(object sender, EventArgs e) => SelectRow(dataGridViewHistory.CurrentCell?.OwningRow, hide: true);
+    private void dataGridViewHistory_CellDoubleClick(object sender, DataGridViewCellEventArgs e) => SelectRow(dataGridViewHistory.Rows[e.RowIndex], hide: true);
+    private void dataGridViewHistory_CellValueChanged(object sender, DataGridViewCellEventArgs e) => SelectRow(dataGridViewHistory.Rows[e.RowIndex]);
 }
