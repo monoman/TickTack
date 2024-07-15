@@ -34,10 +34,7 @@ public partial class FormReminder : Form
     private int _totalMinutes => (int)_interval.TotalMinutes;
     private void UpdateText() => Text = $"{_title}  [{FormatTimeSpan(progressBar.Value)} of {_totalMinutes:0}min]";
 
-    private static string FormatTimeSpan(int timeInSeconds) {
-        var ts = TimeSpan.FromSeconds(timeInSeconds);
-        return ts.ToString("mm\\:ss");
-    }
+    private static string FormatTimeSpan(int timeInSeconds) => $"{timeInSeconds / 60:0}:{timeInSeconds % 60:00}";
 
     private static readonly Lazy<string> _appDataFolder = new(() => {
         var _appDataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), nameof(TickTack));
@@ -54,7 +51,7 @@ public partial class FormReminder : Form
     private void SelectRow(DataGridViewRow? row, bool hide = false) {
         if (row is not null && (!timer.Enabled || hide)) {
             string? text = row?.Cells[0].Value as string;
-            int minutes = (int)(row?.Cells[1].Value ?? ContentFile.DefaultPeriodInMinutes);
+            int minutes = (row?.Cells[1].Value as int?) ?? ContentFile.DefaultPeriodInMinutes;
             if (!string.IsNullOrWhiteSpace(text) && minutes >= 1) {
                 timer.Enabled = false;
                 Status = _contentFile.UpdateContent(text, minutes);

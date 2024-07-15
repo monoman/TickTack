@@ -23,7 +23,7 @@ public class HistoryFile : DataTable
         BeginLoadData();
         Columns.Clear();
         Columns.Add(new DataColumn() { DataType = typeof(string), AllowDBNull = false, ColumnName = "Task" });
-        Columns.Add(new DataColumn() { DataType = typeof(int), AllowDBNull = false, ColumnName = "Minutes" });
+        Columns.Add(new DataColumn() { DataType = typeof(int), AllowDBNull = true, ColumnName = "Minutes" });
         Rows.Clear();
         if (_file.Exists)
             foreach (var row in ParseHistoryFile(_file))
@@ -35,7 +35,6 @@ public class HistoryFile : DataTable
         RowChanged += HistoryFile_RowChanged;
         UpdateHistory();
     }
-
     private static (string Task, int Minutes)[] ParseHistoryFile(FileInfo file) {
         using var reader = file.OpenText();
         return [.. ReadLines(reader).Select(ParseLine)
@@ -52,7 +51,12 @@ public class HistoryFile : DataTable
     }
 
 
-    private void HistoryFile_RowChanged(object sender, DataRowChangeEventArgs e) => UpdateHistory();
+    private void HistoryFile_RowChanged(object sender, DataRowChangeEventArgs e) {
+        if (e.Row.ItemArray.Length < 2 || e.Row.ItemArray[1] is not int) 
+            e.Row.SetField(e.Row.Table.Columns[1], ContentFile.DefaultPeriodInMinutes);
+        UpdateHistory();
+    }
+
     private void HistoryFile_TableCleared(object sender, DataTableClearEventArgs e) => UpdateHistory();
 
     private void UpdateHistory() {
