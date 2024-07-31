@@ -29,13 +29,11 @@ namespace TickTack
             var dataGridViewCellStyle1 = new DataGridViewCellStyle();
             var dataGridViewCellStyle2 = new DataGridViewCellStyle();
             timer = new System.Windows.Forms.Timer(components);
-            panelHistory = new Panel();
             dataGridViewHistory = new DataGridView();
             panelTop = new Panel();
             progressBar = new ProgressBar();
             buttonClearHistory = new Button();
             buttonStart = new Button();
-            panelHistory.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewHistory).BeginInit();
             panelTop.SuspendLayout();
             SuspendLayout();
@@ -43,17 +41,6 @@ namespace TickTack
             // timer
             // 
             timer.Tick += timer_Tick;
-            // 
-            // panelHistory
-            // 
-            panelHistory.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            panelHistory.BackColor = Color.OrangeRed;
-            panelHistory.Controls.Add(dataGridViewHistory);
-            panelHistory.Dock = DockStyle.Bottom;
-            panelHistory.Location = new Point(0, 34);
-            panelHistory.Name = "panelHistory";
-            panelHistory.Size = new Size(677, 390);
-            panelHistory.TabIndex = 8;
             // 
             // dataGridViewHistory
             // 
@@ -71,7 +58,7 @@ namespace TickTack
             dataGridViewHistory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewHistory.Dock = DockStyle.Fill;
             dataGridViewHistory.GridColor = Color.DeepPink;
-            dataGridViewHistory.Location = new Point(0, 0);
+            dataGridViewHistory.Location = new Point(0, 34);
             dataGridViewHistory.MultiSelect = false;
             dataGridViewHistory.Name = "dataGridViewHistory";
             dataGridViewCellStyle2.BackColor = Color.PapayaWhip;
@@ -80,7 +67,7 @@ namespace TickTack
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             dataGridViewHistory.RowsDefaultCellStyle = dataGridViewCellStyle2;
             dataGridViewHistory.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewHistory.Size = new Size(677, 390);
+            dataGridViewHistory.Size = new Size(588, 538);
             dataGridViewHistory.StandardTab = true;
             dataGridViewHistory.TabIndex = 11;
             dataGridViewHistory.CellDoubleClick += dataGridViewHistory_CellDoubleClick;
@@ -97,7 +84,7 @@ namespace TickTack
             panelTop.Font = new Font("Cascadia Code SemiBold", 12F, FontStyle.Bold);
             panelTop.Location = new Point(0, 0);
             panelTop.Name = "panelTop";
-            panelTop.Size = new Size(677, 34);
+            panelTop.Size = new Size(588, 34);
             panelTop.TabIndex = 4;
             // 
             // progressBar
@@ -105,7 +92,7 @@ namespace TickTack
             progressBar.Dock = DockStyle.Fill;
             progressBar.Location = new Point(85, 0);
             progressBar.Name = "progressBar";
-            progressBar.Size = new Size(435, 34);
+            progressBar.Size = new Size(346, 34);
             progressBar.Step = 1;
             progressBar.Style = ProgressBarStyle.Continuous;
             progressBar.TabIndex = 12;
@@ -119,7 +106,7 @@ namespace TickTack
             buttonClearHistory.FlatStyle = FlatStyle.Popup;
             buttonClearHistory.Font = new Font("Cascadia Code SemiBold", 12F, FontStyle.Bold);
             buttonClearHistory.ForeColor = Color.DarkGreen;
-            buttonClearHistory.Location = new Point(520, 0);
+            buttonClearHistory.Location = new Point(431, 0);
             buttonClearHistory.Name = "buttonClearHistory";
             buttonClearHistory.Padding = new Padding(10, 0, 10, 0);
             buttonClearHistory.Size = new Size(157, 34);
@@ -151,11 +138,10 @@ namespace TickTack
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             BackColor = Color.Bisque;
-            ClientSize = new Size(677, 424);
+            ClientSize = new Size(588, 572);
+            Controls.Add(dataGridViewHistory);
             Controls.Add(panelTop);
-            Controls.Add(panelHistory);
             Font = new Font("Calibri", 9F);
-            FormBorderStyle = FormBorderStyle.Fixed3D;
             MaximizeBox = false;
             Name = "FormReminder";
             Opacity = 0.85D;
@@ -163,7 +149,6 @@ namespace TickTack
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Reminder";
             Shown += FormReminder_Shown;
-            panelHistory.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridViewHistory).EndInit();
             panelTop.ResumeLayout(false);
             panelTop.PerformLayout();
@@ -172,7 +157,6 @@ namespace TickTack
 
         #endregion
         private System.Windows.Forms.Timer timer;
-        private Panel panelHistory;
         private Panel panelTop;
         private Button buttonStart;
         private DataGridView dataGridViewHistory;

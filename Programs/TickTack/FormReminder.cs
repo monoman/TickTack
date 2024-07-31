@@ -12,10 +12,17 @@ public partial class FormReminder : Form
         _historyFile = new HistoryFile(DataFolder);
         _contentFile = new ContentFile(DataFolder);
         InitializeComponent();
-        dataGridViewHistory.DataSource = _historyFile;
-        dataGridViewHistory.ClearSelection();
+        AdjustDataGridToData(_historyFile);
         Status = _contentFile.ReadContent();
         TopMost = true;
+    }
+
+    private void AdjustDataGridToData(HistoryFile data) {
+        dataGridViewHistory.DataSource = data;
+        dataGridViewHistory.ClearSelection();
+        var minutesColumn = dataGridViewHistory.Columns[1];
+        minutesColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+        minutesColumn.DefaultCellStyle = new DataGridViewCellStyle() { Alignment = DataGridViewContentAlignment.MiddleRight };
     }
 
     public static string DataFolder => _appDataFolder.Value;
