@@ -32,7 +32,7 @@ namespace TickTack
             dataGridViewHistory = new DataGridView();
             panelTop = new Panel();
             progressBar = new ProgressBar();
-            buttonClearHistory = new Button();
+            buttonEditHistory = new Button();
             buttonStart = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridViewHistory).BeginInit();
             panelTop.SuspendLayout();
@@ -78,7 +78,7 @@ namespace TickTack
             // 
             panelTop.BackColor = SystemColors.GradientActiveCaption;
             panelTop.Controls.Add(progressBar);
-            panelTop.Controls.Add(buttonClearHistory);
+            panelTop.Controls.Add(buttonEditHistory);
             panelTop.Controls.Add(buttonStart);
             panelTop.Dock = DockStyle.Top;
             panelTop.Font = new Font("Cascadia Code SemiBold", 12F, FontStyle.Bold);
@@ -97,23 +97,23 @@ namespace TickTack
             progressBar.Style = ProgressBarStyle.Continuous;
             progressBar.TabIndex = 12;
             // 
-            // buttonClearHistory
+            // buttonEditHistory
             // 
-            buttonClearHistory.AutoSize = true;
-            buttonClearHistory.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            buttonClearHistory.BackColor = Color.Khaki;
-            buttonClearHistory.Dock = DockStyle.Right;
-            buttonClearHistory.FlatStyle = FlatStyle.Popup;
-            buttonClearHistory.Font = new Font("Cascadia Code SemiBold", 12F, FontStyle.Bold);
-            buttonClearHistory.ForeColor = Color.DarkGreen;
-            buttonClearHistory.Location = new Point(431, 0);
-            buttonClearHistory.Name = "buttonClearHistory";
-            buttonClearHistory.Padding = new Padding(10, 0, 10, 0);
-            buttonClearHistory.Size = new Size(157, 34);
-            buttonClearHistory.TabIndex = 11;
-            buttonClearHistory.Text = "Clear history";
-            buttonClearHistory.UseVisualStyleBackColor = false;
-            buttonClearHistory.Click += buttonClearHistory_Click;
+            buttonEditHistory.AutoSize = true;
+            buttonEditHistory.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            buttonEditHistory.BackColor = Color.Khaki;
+            buttonEditHistory.Dock = DockStyle.Right;
+            buttonEditHistory.FlatStyle = FlatStyle.Popup;
+            buttonEditHistory.Font = new Font("Cascadia Code SemiBold", 12F, FontStyle.Bold);
+            buttonEditHistory.ForeColor = Color.DarkGreen;
+            buttonEditHistory.Location = new Point(431, 0);
+            buttonEditHistory.Name = "buttonClearHistory";
+            buttonEditHistory.Padding = new Padding(10, 0, 10, 0);
+            buttonEditHistory.Size = new Size(157, 34);
+            buttonEditHistory.TabIndex = 11;
+            buttonEditHistory.Text = "Edit history";
+            buttonEditHistory.UseVisualStyleBackColor = false;
+            buttonEditHistory.Click += buttonEditHistory_Click;
             // 
             // buttonStart
             // 
@@ -160,7 +160,7 @@ namespace TickTack
         private Panel panelTop;
         private Button buttonStart;
         private DataGridView dataGridViewHistory;
-        private Button buttonClearHistory;
+        private Button buttonEditHistory;
         private ProgressBar progressBar;
     }
 }
