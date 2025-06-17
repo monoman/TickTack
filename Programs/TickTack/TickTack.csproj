@@ -1,12 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-		<Version>1.0.2</Version>
-        <TargetFramework>net9.0-windows</TargetFramework>
-        <OutputType>WinExe</OutputType>
-        <Nullable>enable</Nullable>
-        <UseWindowsForms>true</UseWindowsForms>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <ForceDesignerDpiUnaware>true</ForceDesignerDpiUnaware>
+      <ApplicationIcon>TickTack.ico</ApplicationIcon>
+      <AssemblyName>TickTack</AssemblyName>
+		  <Version>1.0.2</Version>
+      <TargetFramework>net9.0-windows</TargetFramework>
+      <OutputType>WinExe</OutputType>
+      <Nullable>enable</Nullable>
+      <UseWindowsForms>true</UseWindowsForms>
+      <ImplicitUsings>enable</ImplicitUsings>
+      <ForceDesignerDpiUnaware>true</ForceDesignerDpiUnaware>
     </PropertyGroup>
     <ItemGroup>
       <Compile Update="Properties\Resources.Designer.cs">

@@ -6,7 +6,6 @@
 
 
 using System.Data;
-using System.Diagnostics;
 using System.Globalization;
 
 namespace TickTack;
@@ -32,11 +31,10 @@ public class HistoryFile : DataTable
         RowDeleted += HistoryFile_RowChanged;
         RowChanged += HistoryFile_RowChanged;
     }
-    internal void EditOnNpp() => Process.Start(new ProcessStartInfo() {
-        UseShellExecute = false,
-        Arguments = $"-multiInst -notabbar -nosession -noPlugin {_file.FullName}",
-        FileName = @"d:\opt\Notepad++\notepad++.exe"
-    })?.WaitForExit();
+    internal void EditUsingEditorFromEnvironment() {
+        if (_file.FullName.EditUsingEnvironmentVar("EDITOR"))
+            LoadLines();
+    }
 
     private void LoadLines() {
         Rows.Clear();
@@ -63,7 +61,7 @@ public class HistoryFile : DataTable
     private bool _enteredRowChanged = false;
     private void HistoryFile_RowChanged(object sender, DataRowChangeEventArgs e) {
         if (_enteredRowChanged) return;
-        _enteredRowChanged= true;
+        _enteredRowChanged = true;
         try {
             if (e.Row.ItemArray.Length < 2 || e.Row.ItemArray[1] is not int)
                 e.Row.SetField(e.Row.Table.Columns[1], ContentFile.DefaultPeriodInMinutes);

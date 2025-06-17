@@ -91,7 +91,7 @@ public partial class FormReminder : Form
     private void buttonEditHistory_Click(object sender, EventArgs e) {
         if (_historyFile is null)
             return;
-        _historyFile.EditOnNpp();
+        _historyFile.EditUsingEditorFromEnvironment();
         AdjustDataGridToData();
     }
 
