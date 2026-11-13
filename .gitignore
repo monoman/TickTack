@@ -12,3 +12,6 @@ TestResult.xml
 *.user
 *.nupkg
 .vs/
+# bash generated helper files
+outdated.txt
+updated_nugets.txt
