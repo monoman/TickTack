@@ -1,12 +1,11 @@
 // ******************************************************************************************************************************
 // ****
-// ****      Copyright (c) 2008-2024 Rafael 'Monoman' Teixeira
+// ****      Copyright (c) 2008-2026 Rafael 'Monoman' Teixeira
 // ****
 // ******************************************************************************************************************************
 
 
 using System.Data;
-using System.Globalization;
 
 namespace TickTack;
 
@@ -40,7 +39,7 @@ public class HistoryFile : DataTable
         Rows.Clear();
         if (_file.Exists)
             foreach (var row in ParseHistoryFile(_file))
-                Rows.Add(row.Task, row.Minutes);
+                _ = Rows.Add(row.Task, row.Minutes);
     }
 
     private static (string Task, int Minutes)[] ParseHistoryFile(FileInfo file) {
@@ -74,7 +73,7 @@ public class HistoryFile : DataTable
     private void UpdateHistory() {
         if (_backupFile.Exists)
             _backupFile.Delete();
-        _file.CopyTo(_backupFile.FullName);
+        _ = _file.CopyTo(_backupFile.FullName);
         using var stream = _file.Open(FileMode.Create, FileAccess.Write, FileShare.ReadWrite);
         using var historyWriter = new StreamWriter(stream);
         foreach (DataRow historyEntry in Rows) {

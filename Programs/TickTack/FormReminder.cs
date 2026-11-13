@@ -1,12 +1,8 @@
 // ******************************************************************************************************************************
 // ****
-// ****      Copyright (c) 2008-2024 Rafael 'Monoman' Teixeira
+// ****      Copyright (c) 2008-2026 Rafael 'Monoman' Teixeira
 // ****
 // ******************************************************************************************************************************
-
-using System.ComponentModel;
-using System.Diagnostics;
-
 
 namespace TickTack;
 
@@ -33,7 +29,7 @@ public partial class FormReminder : Form
     private static string FormatTimeSpan(int timeInSeconds) => $"{timeInSeconds / 60:0}:{timeInSeconds % 60:00}";
     private static string CreateAppDataFolder() {
         var appDataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), nameof(TickTack));
-        Directory.CreateDirectory(appDataFolder);
+        _ = Directory.CreateDirectory(appDataFolder);
         return appDataFolder;
     }
     private void AdjustDataGridToData() {
@@ -60,7 +56,7 @@ public partial class FormReminder : Form
                 return;
             }
         }
-        dataGridViewHistory.Focus();
+        _ = dataGridViewHistory.Focus();
     }
     private void SetStatus((string Title, int Minutes) value) {
         Title = value.Title;
@@ -86,7 +82,7 @@ public partial class FormReminder : Form
     }
     private void FormReminder_Shown(object sender, EventArgs e) {
         timer.Enabled = false;
-        dataGridViewHistory.Focus();
+        _ = dataGridViewHistory.Focus();
     }
     private void buttonEditHistory_Click(object sender, EventArgs e) {
         if (_historyFile is null)
@@ -102,8 +98,5 @@ public partial class FormReminder : Form
     private void dataGridViewHistory_CellDoubleClick(object sender, DataGridViewCellEventArgs e) => SelectRow(dataGridViewHistory.Rows[e.RowIndex], hide: true);
     private void dataGridViewHistory_CellValueChanged(object sender, DataGridViewCellEventArgs e) => SelectRow(dataGridViewHistory.Rows[e.RowIndex]);
 
-    protected override void OnClosed(EventArgs e) {
-        base.OnClosed(e);
-        _historyFile?.Dispose();
-    }
+    private void FormReminder_FormClosed(object sender, FormClosedEventArgs e) => _historyFile?.Dispose();
 }

@@ -1,12 +1,13 @@
 // ******************************************************************************************************************************
 // ****
-// ****      Copyright (c) 2008-2024 Rafael 'Monoman' Teixeira
+// ****      Copyright (c) 2008-2026 Rafael 'Monoman' Teixeira
 // ****
 // ******************************************************************************************************************************
 
 namespace TickTack;
 
-public static class StringExtensions {
+public static class StringExtensions
+{
     public static string WithDefault(this string? value, string @default)
         => string.IsNullOrWhiteSpace(value) ? @default : value;
 }

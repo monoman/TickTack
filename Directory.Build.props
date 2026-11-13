@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+    <PropertyGroup>
+        <Version>1.1.0</Version>
+        <Notes>
+            - TargetFramework set to net11.0-windows for TickTack
+            - Added Tests project with NUnit and coverlet.collector for unit testing and code coverage
+            + Tests for ContentFile and HistoryFile classes added
+            - Changed .gitattributes to keep LF line endings for text files
+            - Simplified using directives in csproj files
+            - Add .env and routine.bash files
+        </Notes>
+        <AnalysisLevel>preview-all</AnalysisLevel>
+        <LangVersion>preview</LangVersion>
+        <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    </PropertyGroup>
+    <ItemGroup>
+        <Using Include="System" />
+        <Using Include="System.Globalization" />
+        <Using Include="System.ComponentModel" />
+    </ItemGroup>
+</Project>

@@ -25,7 +25,7 @@ namespace TickTack
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            components = new System.ComponentModel.Container();
+            components = new Container();
             var dataGridViewCellStyle1 = new DataGridViewCellStyle();
             var dataGridViewCellStyle2 = new DataGridViewCellStyle();
             timer = new System.Windows.Forms.Timer(components);
@@ -34,7 +34,7 @@ namespace TickTack
             progressBar = new ProgressBar();
             buttonEditHistory = new Button();
             buttonStart = new Button();
-            ((System.ComponentModel.ISupportInitialize)dataGridViewHistory).BeginInit();
+            ((ISupportInitialize)dataGridViewHistory).BeginInit();
             panelTop.SuspendLayout();
             SuspendLayout();
             // 
@@ -90,9 +90,9 @@ namespace TickTack
             // progressBar
             // 
             progressBar.Dock = DockStyle.Fill;
-            progressBar.Location = new Point(85, 0);
+            progressBar.Location = new Point(87, 0);
             progressBar.Name = "progressBar";
-            progressBar.Size = new Size(346, 34);
+            progressBar.Size = new Size(351, 34);
             progressBar.Step = 1;
             progressBar.Style = ProgressBarStyle.Continuous;
             progressBar.TabIndex = 12;
@@ -103,13 +103,13 @@ namespace TickTack
             buttonEditHistory.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             buttonEditHistory.BackColor = Color.Khaki;
             buttonEditHistory.Dock = DockStyle.Right;
-            buttonEditHistory.FlatStyle = FlatStyle.Popup;
+            buttonEditHistory.FlatStyle = FlatStyle.Flat;
             buttonEditHistory.Font = new Font("Cascadia Code SemiBold", 12F, FontStyle.Bold);
             buttonEditHistory.ForeColor = Color.DarkGreen;
-            buttonEditHistory.Location = new Point(431, 0);
-            buttonEditHistory.Name = "buttonClearHistory";
+            buttonEditHistory.Location = new Point(438, 0);
+            buttonEditHistory.Name = "buttonEditHistory";
             buttonEditHistory.Padding = new Padding(10, 0, 10, 0);
-            buttonEditHistory.Size = new Size(157, 34);
+            buttonEditHistory.Size = new Size(150, 34);
             buttonEditHistory.TabIndex = 11;
             buttonEditHistory.Text = "Edit history";
             buttonEditHistory.UseVisualStyleBackColor = false;
@@ -121,15 +121,16 @@ namespace TickTack
             buttonStart.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             buttonStart.BackColor = Color.Indigo;
             buttonStart.Dock = DockStyle.Left;
-            buttonStart.FlatStyle = FlatStyle.Popup;
+            buttonStart.FlatStyle = FlatStyle.Flat;
             buttonStart.Font = new Font("Cascadia Code SemiBold", 12F, FontStyle.Bold);
             buttonStart.ForeColor = Color.LightGray;
             buttonStart.Location = new Point(0, 0);
             buttonStart.Name = "buttonStart";
             buttonStart.Padding = new Padding(10, 0, 10, 0);
-            buttonStart.Size = new Size(85, 34);
+            buttonStart.Size = new Size(87, 34);
             buttonStart.TabIndex = 6;
             buttonStart.Text = "Start";
+            buttonStart.UseMnemonic = false;
             buttonStart.UseVisualStyleBackColor = true;
             buttonStart.Click += buttonStart_Click;
             // 
@@ -148,8 +149,9 @@ namespace TickTack
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Reminder";
+            FormClosed += FormReminder_FormClosed;
             Shown += FormReminder_Shown;
-            ((System.ComponentModel.ISupportInitialize)dataGridViewHistory).EndInit();
+            ((ISupportInitialize)dataGridViewHistory).EndInit();
             panelTop.ResumeLayout(false);
             panelTop.PerformLayout();
             ResumeLayout(false);
